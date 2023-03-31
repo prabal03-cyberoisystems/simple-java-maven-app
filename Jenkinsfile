@@ -2,7 +2,6 @@ pipeline {
     agent any
     tools {
         maven 'Maven' // specify the tool identifier
-        snyk   'SNYK' // specify the tool identifier
     }
     
     stages {
@@ -22,6 +21,9 @@ pipeline {
             }
         }
         stage('Security Scan') {
+            tools {
+              snyk 'SNYK'
+             }
             steps {
     withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_API_KEY')]) {
       sh '''

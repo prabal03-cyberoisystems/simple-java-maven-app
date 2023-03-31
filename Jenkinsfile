@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        maven 'Maven-3.9.1' // specify the tool identifier
+        maven 'Maven' // specify the tool identifier
     }
     
     stages {

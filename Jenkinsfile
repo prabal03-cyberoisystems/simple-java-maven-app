@@ -2,6 +2,7 @@ pipeline {
     agent any
     tools {
         maven 'Maven' // specify the tool identifier
+        snyk   'SNYK' // specify the tool identifier
     }
     
     stages {

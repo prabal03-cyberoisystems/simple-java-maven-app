@@ -6,7 +6,7 @@ pipeline {
     }
     environment {
     // Define the PATH environment variable to include the Snyk executable location
-    PATH = "${tool 'snyk'}/bin:${env.PATH}"
+    PATH = "${tool 'SNYK'}/bin:${env.PATH}"
   }
     
     stages {

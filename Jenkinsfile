@@ -2,7 +2,12 @@ pipeline {
     agent any
     tools {
         maven 'Maven' // specify the tool identifier
+        snyk 'SNYK' //specify the tool identifier
     }
+    environment {
+    // Define the PATH environment variable to include the Snyk executable location
+    PATH = "${tool 'snyk'}/bin:${env.PATH}"
+  }
     
     stages {
         stage('Build') {
@@ -21,9 +26,6 @@ pipeline {
             }
         }
         stage('Security Scan') {
-            tools {
-              snyk 'SNYK'
-             }
             steps {
     withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_API_KEY')]) {
       sh '''

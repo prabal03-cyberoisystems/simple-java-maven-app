@@ -20,6 +20,16 @@ pipeline {
                 }
             }
         }
+        stage('Security Scan') {
+            steps {
+    withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_API_KEY')]) {
+      sh '''
+        export SNYK_TOKEN=$SNYK_API_KEY
+        snyk test
+      '''
+         } 
+      }
+   }
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'

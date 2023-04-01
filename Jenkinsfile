@@ -10,12 +10,12 @@ pipeline {
   }
     
     stages {
-        stage('Build') {
+        stage('Build') {                           // Build stage 
             steps {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-        stage('Test') {
+        stage('Test') {                            // Test stage 
             steps {
                 sh 'mvn test'
             }
@@ -25,7 +25,7 @@ pipeline {
                 }
             }
         }
-        stage('Security Scan') {
+        stage('Security Scan') {                    // snyk stage
             steps {
     withCredentials([string(credentialsId: 'SNYK_API_TOKEN', variable: 'SNYK_API_KEY')]) {
       sh '''
@@ -35,6 +35,12 @@ pipeline {
          } 
       }
    }
+        stage('SpotBugs') {                         // spotbug stage
+            steps {
+                spotbugs(pattern: '**/*.class', excludeFilter: '')
+            }
+        }
+
         stage('Deliver') {
             steps {
                 sh './jenkins/scripts/deliver.sh'

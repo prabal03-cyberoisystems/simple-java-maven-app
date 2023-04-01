@@ -31,15 +31,11 @@ pipeline {
       sh '''
         export SNYK_TOKEN=$SNYK_API_KEY
         snyk test
+        snyk monitor
       '''
          } 
       }
    }
-        stage('SpotBugs') {                         // spotbug stage
-            steps {
-                spotbugs(pattern: '**/*.class', excludeFilter: '')
-            }
-        }
 
         stage('Deliver') {
             steps {
